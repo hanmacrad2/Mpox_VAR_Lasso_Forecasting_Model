@@ -10,6 +10,7 @@ library(tidyverse); library(ggh4x); library(lubridate)
 library(zoo); library(forcats); library(scales)
 library(viridis)
 library(surveillance)
+library(stringr)
 
 #SOURCE CODE
 FOLDER_FINAL = "C:/Users/h2cra/OneDrive/Documents/UCSD/PROJECTS/Project_2_Mpox/CODE_FINAL/"
