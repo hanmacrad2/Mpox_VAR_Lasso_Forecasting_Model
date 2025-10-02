@@ -213,3 +213,34 @@ sum(df_go_23$Cases) #15
 #OHIO
 df_oh_23_24 = df_23_24 %>% filter(Jurisdiction == 'Ohio')
 plot.ts(df_oh_23_24$Cases)
+
+#**********
+#* 2025 data
+df_25 = data_mpox_model %>% filter(Year == 2025)
+
+#WASHINGTON (#INCLUDE)
+df_wa_25 = df_25 %>% filter(Jurisdiction == 'Washington')
+plot.ts(df_wa_25$Cases)
+plot.ts(data_24_ts_forecast_start['Washington'])
+
+df_nyc_25 = df_25 %>% filter(Jurisdiction == 'NewYorkCity')
+plot.ts(df_nyc_25$Cases)
+plot.ts(data_24_ts_forecast_start['NewYorkCity'])
+
+df_sd_25 = df_25 %>% filter(Jurisdiction == 'SanDiego')
+plot.ts(df_sd_25$Cases)
+plot.ts(data_24_ts_forecast_start['SanDiego'])
+
+df_la_25 = df_25 %>% filter(Jurisdiction == 'LA')
+plot.ts(df_la_25$Cases)
+plot.ts(data_24_ts_forecast_start['LA'])
+
+df_tex_25 = df_25 %>% filter(Jurisdiction == 'Texas')
+plot.ts(df_tex_25$Cases)
+plot.ts(data_24_ts_forecast_start['Texas'])
+
+
+df_ill_25 = df_25 %>% filter(Jurisdiction == 'Illinois')
+plot.ts(df_ill_25$Cases)
+plot.ts(data_24_ts_forecast_start['Illinois'])
+

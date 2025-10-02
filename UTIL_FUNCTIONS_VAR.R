@@ -9,7 +9,7 @@ GET_TS_DATA <- function(data_mpox) {
   'GET DATA IN TIME-SERIES FORMAT; TIME X JURISDICTION'
   var_data <- data_mpox %>%
     dplyr::select(Jurisdiction, date_week_start, Week_Number, Cases) %>%
-    pivot_wider(id_cols = c(date_week_start, Week_Number), names_from = Jurisdiction, values_from = Cases) 
+    pivot_wider(id_cols = c(Week_Number, date_week_start), names_from = Jurisdiction, values_from = Cases) #id_cols = c(date_week_start, Week_Number)
   #%>% dplyr::select(-Week_Number)
   
   print(paste0('nrow data_ts: ', nrow(var_data)))
@@ -28,7 +28,7 @@ GET_TS_DATA_DIFF <- function(data_mpox) {
     filter(!is.na(Cases_Diff)) # Remove the first row of each jurisdiction
   
   data_diff <- data_diff_long %>%
-    pivot_wider(id_cols = c(date_week_start, Week_Number), names_from = Jurisdiction, values_from = Cases_Diff) %>%
+    pivot_wider(id_cols = c(Week_Number), names_from = Jurisdiction, values_from = Cases_Diff) %>%
     dplyr::select(-Week_Number, - date_week_start)
   
   #data_diff = data_diff[, correct_col_order]

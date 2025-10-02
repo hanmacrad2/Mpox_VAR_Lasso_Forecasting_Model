@@ -7,9 +7,14 @@ FOLDER_CODE = 'C:/Users/h2cra/OneDrive/Documents/UCSD/PROJECTS/Project_2_Mpox/CO
 source(paste0(FOLDER_CODE, 'SETUP.R'))
 source(paste0(FOLDER_CODE, '4_VAR_LASSO_MODEL.R')) 
 
-#DATA
+#DATA -> 2024
 DATA_FOLDER <- "C:/Users/h2cra/OneDrive/Documents/UCSD/PROJECTS/Project_2_Mpox/Data/DATA_UPDATE_25_JUNE_25/WEEK_46_2024/"
 data_mpox = readRDS(paste0(DATA_FOLDER, 'data_mpox.rds')) 
+
+#DATA -> 2025: LOAD UPDATED DATA!!
+#DATA -> 2025: LOAD UPDATED DATA!!
+DATA_FOLDER <- "C:/Users/h2cra/OneDrive/Documents/UCSD/PROJECTS/Project_2_Mpox/Data/DATA_2025/"
+data_mpox = read.csv(paste0(DATA_FOLDER, 'data_mpox_final_22_2025.csv')) 
 
 data_mpox <- data_mpox %>%
   mutate(date_week_start = as.Date(date_week_start))
@@ -60,8 +65,8 @@ data_mpox_model = data_mpox_model %>% filter(Year >= 2023)
 
 
 #CHECKS
-df_mpox_smooth_x = df_mpox_smooth %>% filter(Jurisdiction == 'NewYorkCity')
-plot.ts(df_mpox_smooth_x$Cases)
+df_mpox_smooth_nyc = df_mpox_smooth %>% filter(Jurisdiction == 'NewYorkCity')
+plot.ts(df_mpox_smooth_nyc$Cases)
 plot.ts(df_mpox_smooth$Cases[df_mpox_smooth$Jurisdiction == 'SanDiego'])
 points(df_mpox_smooth$Cases[df_mpox_smooth$Jurisdiction == 'SanDiego'])
 

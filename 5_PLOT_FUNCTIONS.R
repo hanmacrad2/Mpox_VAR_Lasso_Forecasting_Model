@@ -4,7 +4,7 @@
 library(patchwork)
 
 PLOT_DATES_TRUE_FORECAST <- function(data_tot_ts, df_pred_true_long, list_ordered_jur,
-                                     titleX, n_col_plot = 2) {
+                                     titleX, n_col_plot = 2, predicted_col = "red") {
   
   #FORMAT
   data_tot_ts <- data_tot_ts %>%
@@ -52,7 +52,7 @@ PLOT_DATES_TRUE_FORECAST <- function(data_tot_ts, df_pred_true_long, list_ordere
     geom_point(data = filter(df_plot, Source == "True"), size = 1.75) +
     geom_line(data = filter(df_plot, Source == "Predicted"), size = 0.6) +
     geom_point(data = filter(df_plot, Source == "Predicted"), size = 1.75) +
-    scale_color_manual(values = c("True" = "black", "Predicted" = "red")) +
+    scale_color_manual(values = c("True" = "black", "Predicted" = predicted_col)) +
     scale_x_date(
       breaks = x_breaks,
       date_labels = "%m/%d/%y"

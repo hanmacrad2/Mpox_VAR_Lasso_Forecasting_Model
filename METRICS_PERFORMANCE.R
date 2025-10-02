@@ -147,17 +147,17 @@ GET_SLOPE_WEIGHTED_METRICS <- function(df_slope, df_preds) {
 
   #RMSE
   slope_weighted_rmse <- sqrt(sum(weights * (df_preds_slope$Actual - df_preds_slope$Predicted)^2, na.rm = TRUE) / sum(weights, na.rm = TRUE))
-  slope_weighted_rmse = round(slope_weighted_rmse, 3)
+  slope_weighted_rmse = round(slope_weighted_rmse, 10) #3
   print(paste0('Slope weighted RMSE:', slope_weighted_rmse))
   
   #MAE
   slope_weighted_mae =  sum(weights * abs(df_preds_slope$Actual - df_preds_slope$Predicted), na.rm = TRUE) / sum(weights, na.rm = TRUE)
-  slope_weighted_mae = round(slope_weighted_mae, 3)
+  slope_weighted_mae = round(slope_weighted_mae, 10) #3
   print(paste0('Slope weighted MAE:', slope_weighted_mae))
   
   #BIAS
   slope_weighted_bias = sum(weights * (df_preds_slope$Predicted - df_preds_slope$Actual), na.rm = TRUE) / sum(weights, na.rm = TRUE)
-  slope_weighted_bias = round(slope_weighted_bias, 3)
+  slope_weighted_bias = round(slope_weighted_bias, 10) #3
   print(paste0('Slope weighted BIAS:', slope_weighted_bias))
   
   return(list(slope_weighted_rmse = slope_weighted_rmse, slope_weighted_mae = slope_weighted_mae, slope_weighted_bias = slope_weighted_bias))
@@ -250,9 +250,9 @@ GET_JUR_METRICS_MODELS_COMPARED <- function(df1, df2, df_slope, list_order) {
       by = "Jurisdiction"
     ) %>%
     mutate(
-      var_rmse_pcent_improve = round(100 * (naive_w_slope_rmse - var_w_slope_rmse) / naive_w_slope_rmse, 2),
-      var_mae_pcent_improve  = round(100 * (naive_w_slope_mae  - var_w_slope_mae)  / naive_w_slope_mae, 2),
-      var_bias_pcent_improve = round(100 * (naive_w_slope_bias - var_w_slope_bias) / naive_w_slope_bias, 2)
+      var_rmse_pcent_improve = round(100 * (naive_w_slope_rmse - var_w_slope_rmse) / naive_w_slope_rmse, 10),
+      var_mae_pcent_improve  = round(100 * (naive_w_slope_mae  - var_w_slope_mae)  / naive_w_slope_mae, 10),
+      var_bias_pcent_improve = round(100 * (naive_w_slope_bias - var_w_slope_bias) / naive_w_slope_bias, 10)
     ) %>%
     dplyr::select(
       Jurisdiction,

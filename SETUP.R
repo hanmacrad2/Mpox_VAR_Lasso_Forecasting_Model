@@ -13,7 +13,8 @@ library(surveillance)
 library(stringr)
 
 #SOURCE CODE
-FOLDER_FINAL = "C:/Users/h2cra/OneDrive/Documents/UCSD/PROJECTS/Project_2_Mpox/CODE_FINAL/"
+#FOLDER_FINAL = "C:/Users/h2cra/OneDrive/Documents/UCSD/PROJECTS/Project_2_Mpox/CODE_FINAL/"
+FOLDER_FINAL = "C:/Users/h2cra/OneDrive/Documents/GitHub/Mpox_VAR_Lasso_Forecasting_Model/"
 FOLDER_UTILS = 'C:/Users/h2cra/OneDrive/Documents/UCSD/PROJECTS/Project_2_Mpox/PROJECT_CODE/'
 
 #FILES
@@ -26,6 +27,10 @@ source(paste0(FOLDER_FINAL, file2))
 file3 = 'UTIL_FUNCTIONS_PERFORMANCE.R'
 source(paste0(FOLDER_FINAL, file3))
 
+
+file4 = '4_VAR_LASSO_MODEL.R'
+source(paste0(FOLDER_FINAL, file4))
+
 file7 = '4B_NAIVE_ESTIMATE.R'
 source(paste0(FOLDER_FINAL, file7))
 
@@ -37,6 +42,6 @@ source(paste0(FOLDER_FINAL, file8))
 file4 = '5_PLOT_FUNCTIONS.R'
 source(paste0(FOLDER_FINAL, file4))
 
-file5 = 'PLOT_FUNCTIONS.R'
-source(paste0(FOLDER_FINAL, file5))
+#file5 = 'PLOT_FUNCTIONS.R'
+#source(paste0(FOLDER_FINAL, file5))
 

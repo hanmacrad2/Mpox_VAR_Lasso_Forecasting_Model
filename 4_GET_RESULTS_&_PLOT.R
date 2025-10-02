@@ -16,7 +16,7 @@ list_metrics2 = GET_SLOPE_WEIGHTED_METRICS(df_slope, df_preds2)
 list_metrics3 = GET_SLOPE_WEIGHTED_METRICS(df_slope, df_preds3)
 list_metrics4 = GET_SLOPE_WEIGHTED_METRICS(df_slope, df_preds4)
 
-#METRICS: JUR LEVEL
+#METRICS: JURISDICTION LEVEL
 df_jur_slope_results =  GET_JUR_METRICS_MODELS_COMPARED(df_preds1, df_preds2, df_slope, list_jur)
 df_global_slope = GET_SLOPE_WEIGHTED_IMPROVEMENT(df_slope, df_preds1, df_preds2)
 
@@ -27,8 +27,14 @@ df_slope_jur = df_slope %>% filter(Jurisdiction == 'S')
 data_start_date = as.Date("2024-05-25")
 df_preds1 = forecasts_var_2w$df_pred_results
 list_states = list_jur
+
 title = 'VAR two week-ahead Forecasts - Top 8 Jurisidictions by Case count in 2023 & 2024'
+title = 'VAR model two week-ahead forecasts for 2025'
 PLOT_DATES_TRUE_FORECAST(data_24_ts_forecast_start , df_preds1, list_jur, title, n_col_plot = 3)
+
+#NAIVE FORECAST 
+title = 'Naive Estimates for 2025'
+PLOT_DATES_TRUE_FORECAST(data_24_ts_forecast_start , df_preds2, list_jur, title, n_col_plot = 3, predicted_col = 'blue')
 
 #********************************************
 #JURISDICTIONS
