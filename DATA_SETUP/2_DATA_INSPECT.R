@@ -244,3 +244,177 @@ df_ill_25 = df_25 %>% filter(Jurisdiction == 'Illinois')
 plot.ts(df_ill_25$Cases)
 plot.ts(data_24_ts_forecast_start['Illinois'])
 
+
+#*****************
+#* PLOT TOTAL WEEKLY
+
+library(dplyr)
+library(ggplot2)
+
+# Summarize total weekly cases across all jurisdictions
+weekly_totals <- data_mpox %>%
+  group_by(date_week_start) %>%
+  summarise(total_cases = sum(Cases, na.rm = TRUE))
+
+# Plot
+ggplot(weekly_totals, aes(x = date_week_start, y = total_cases)) +
+  geom_line(color = "blue") +
+  geom_point(color = "red") +
+  labs(
+    title = "Weekly Total Mpox Cases Across All Jurisdictions",
+    x = "Week Start Date",
+    y = "Total Cases"
+  ) +
+  theme_minimal()
+
+
+
+# Make sure date_week_start is a Date
+data_mpox$date_week_start <- as.Date(data_mpox$date_week_start)
+
+# Summarize weekly cases per jurisdiction
+weekly_jurisdiction <- data_mpox %>%
+  group_by(Jurisdiction, date_week_start) %>%
+  summarise(total_cases = sum(Cases, na.rm = TRUE), .groups = "drop")
+
+# Custom colors for specific jurisdictions
+custom_colors <- c(
+  "California" = "palegreen4",      # Pine green
+  "NYC" = "red",
+  "Texas" = "purple",
+  "Florida" = "yellow",
+  "LA" = "blue",
+  "Georgia" = "magenta",            # Fuchsia pink
+  "Illinois" = "cyan",
+  "New Jersey" = "orange",          # light orange
+  "North Carolina" = "darkorange",
+  "Maryland" = "greenyellow",       # highlighter green
+  "San Diego" = "black"
+)
+
+# Identify jurisdictions not in custom_colors
+other_jurisdictions <- setdiff(unique(weekly_jurisdiction$Jurisdiction), names(custom_colors))
+
+# Assign random colors to the other jurisdictions
+if(length(other_jurisdictions) > 0){
+  custom_colors <- c(custom_colors, setNames(rainbow(length(other_jurisdictions)), other_jurisdictions))
+}
+
+# Plot all time series together
+ggplot(weekly_jurisdiction, aes(x = date_week_start, y = total_cases, color = Jurisdiction)) +
+  geom_line(size = 1) +
+  geom_point(size = 1.5) +
+  scale_color_manual(values = custom_colors) +
+  labs(
+    title = "Weekly Mpox Cases Across All Jurisdictions",
+    x = "Week Start Date",
+    y = "Weekly Cases"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "right")
+
+
+#**************************
+#* PLOT
+
+# make sure time variable exists
+df_mpox <- df_mpox %>%
+  group_by(Jurisdiction) %>%
+  mutate(timepoint = row_number())
+
+# define your color palette
+list_colors <- c(
+  "California" = "palegreen4",     # pine green
+  "NYC" = "red",
+  "Texas" = "purple",
+  "Florida" = "yellow",
+  "LA" = "blue",
+  "Georgia" = "magenta",
+  "Illinois" = "cyan",
+  "New Jersey" = "orange",
+  "North Carolina" = "darkorange",
+  "Maryland" = "greenyellow",
+  "San Diego" = "black"
+)
+
+# add random rainbow colors for any extra jurisdictions
+other_jurisdictions <- setdiff(unique(df_mpox$Jurisdiction), names(list_colors))
+if (length(other_jurisdictions) > 0) {
+  list_colors <- c(list_colors, setNames(rainbow(length(other_jurisdictions)), other_jurisdictions))
+}
+
+# plot: thin lines + larger filled dots
+ggplot(df_mpox, aes(x = timepoint, y = Cases, color = Jurisdiction, fill = Jurisdiction)) +
+  geom_line(linewidth = 0.7) +                     # thinner lines
+  geom_point(size = 3.2, shape = 21) +             # filled circles
+  scale_color_manual(values = list_colors) +
+  scale_fill_manual(values = list_colors) +        # ensures fill matches line
+  labs(
+    title = "Mpox Reported Cases across 56 Unique States & Cities",
+    x = "Time",
+    y = "Case Count"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.title = element_blank(),
+    plot.title = element_text(size = 16, hjust = 0.5)
+  )
+
+
+#******
+#* PLOT
+
+
+# Make sure date_week_start is a Date
+data_mpox$date_week_start <- as.Date(data_mpox$date_week_start)
+
+# Summarize weekly cases per jurisdiction
+weekly_jurisdiction <- data_mpox %>%
+  group_by(Jurisdiction, date_week_start) %>%
+  summarise(total_cases = sum(Cases, na.rm = TRUE), .groups = "drop")
+
+# Custom colors
+custom_colors <- c(
+  "California" = "palegreen4",      # Pine green
+  "NYC" = "#E41A1C",                # vivid red
+  "Texas" = "purple",
+  "Florida" = "yellow",
+  "LA" = "blue",
+  "Georgia" = "magenta",            # Fuchsia pink
+  "Illinois" = "cyan",
+  "New Jersey" = "orange",          # light orange
+  "North Carolina" = "darkorange",
+  "Maryland" = "greenyellow",       # highlighter green
+  "San Diego" = "black"
+)
+
+# Add colors for any others
+other_jurisdictions <- setdiff(unique(weekly_jurisdiction$Jurisdiction), names(custom_colors))
+if (length(other_jurisdictions) > 0) {
+  custom_colors <- c(custom_colors, setNames(rainbow(length(other_jurisdictions)), other_jurisdictions))
+}
+
+# Plot: thinner lines, filled points, larger axis labels
+ggplot(weekly_jurisdiction, aes(x = date_week_start, y = total_cases, color = Jurisdiction, fill = Jurisdiction)) +
+  geom_line(linewidth = 0.7) +                 # slim lines
+  geom_point(size = 3, shape = 21) +           # filled circles
+  scale_color_manual(values = custom_colors) +
+  scale_fill_manual(values = custom_colors) +
+  labs(
+    title = "Weekly Mpox Cases Across All Jurisdictions",
+    x = "Year",
+    y = "Weekly Case count per U.S. jurisdiction"
+  ) +
+  theme_minimal(base_size = 16) +              # larger base font
+  theme(
+    axis.title.x = element_text(size = 15), 
+    axis.title.y = element_text(size = 15),
+    axis.text = element_text(size = 15),
+    axis.text.x = element_text(size = 15), 
+    axis.text.Y = element_text(size = 15), 
+    plot.title = element_text(size = 20, hjust = 0.5, face = "bold"),
+    legend.title = element_blank(),
+    legend.text = element_text(size = 13),
+    legend.position = "right"
+  )
+
