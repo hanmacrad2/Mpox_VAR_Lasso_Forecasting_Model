@@ -397,24 +397,25 @@ if (length(other_jurisdictions) > 0) {
 # Plot: thinner lines, filled points, larger axis labels
 ggplot(weekly_jurisdiction, aes(x = date_week_start, y = total_cases, color = Jurisdiction, fill = Jurisdiction)) +
   geom_line(linewidth = 0.7) +                 # slim lines
-  geom_point(size = 3, shape = 21) +           # filled circles
+  geom_point(size = 2.5, shape = 21) +           # filled circles
   scale_color_manual(values = custom_colors) +
   scale_fill_manual(values = custom_colors) +
   labs(
-    title = "Weekly Mpox Cases Across All Jurisdictions",
+    title = "Mpox Reported Cases across U.S jurisdictions, 2022-2025",
     x = "Year",
-    y = "Weekly Case count per U.S. jurisdiction"
+    y = "Weekly Case count"
   ) +
   theme_minimal(base_size = 16) +              # larger base font
   theme(
-    axis.title.x = element_text(size = 15), 
-    axis.title.y = element_text(size = 15),
-    axis.text = element_text(size = 15),
-    axis.text.x = element_text(size = 15), 
-    axis.text.Y = element_text(size = 15), 
+    axis.title.x = element_text(size = 16, face = 'bold'), 
+    axis.title.y = element_text(size = 16, face = 'bold'),
+    axis.text = element_text(size = 16, face = 'bold'),
+    axis.text.x = element_text(size = 16, face = 'bold'), 
+    axis.text.Y = element_text(size = 16, face = 'bold'), 
     plot.title = element_text(size = 20, hjust = 0.5, face = "bold"),
-    legend.title = element_blank(),
-    legend.text = element_text(size = 13),
-    legend.position = "right"
-  )
+    legend.position = "none")
+    #legend.title = element_blank(),
+    #legend.text = element_text(size = 13),
+    #legend.position = "right"
+  #)
 
